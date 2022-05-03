@@ -1,0 +1,30 @@
+# Ancillary containers for easier testing:
+#   Two BIRD routers. For the configs, check "bird" directory.
+
+services:
+
+  router1:
+    image: pierky/bird:2.0.9
+    hostname: router1
+    networks:
+      tcping:
+        ipv4_address: 10.0.120.11
+    volumes:
+      - ./bird/router1/:/etc/bird:rw
+  
+  router2:
+    image: pierky/bird:2.0.9
+    hostname: router2
+    networks:
+      tcping:
+        ipv4_address: 10.0.120.22
+    volumes:
+      - ./bird/router2/:/etc/bird:rw
+
+
+networks:
+
+  tcping:
+    ipam:
+      config:
+        - subnet: 10.0.120.0/24
